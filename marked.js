@@ -132,7 +132,7 @@ function generateFile(input, outHtml, outNav){
 }
 function generateFiles(config){
     config = config;    
-    let fileConfig = config.inputAndOutputInfo;
+    let fileConfig = config.inputAndOutputConf;
     for (var i = 0; i < fileConfig.length; i++){
         generateFile(fileConfig[i].inputFileName, fileConfig[i].outputContentName, fileConfig[i].outputNavName);
     }
