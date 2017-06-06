@@ -1,7 +1,7 @@
 {
   "name": "markdown-to-nav",
   "version": "1.0.3",
-  "description": "Transfer markdown to html and output its nav",
+  "description": "Transfer a markdown file to a html file and output its nav",
   "main": "marked.js",
   "bin": {
     "mdToNav": "./bin/mdToNav"
@@ -14,5 +14,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/GitKou/markdownToHtmlAndNav.git"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.1",
+    "commander": "^2.9.0",
+    "marked": "^0.3.6"
   }
 }

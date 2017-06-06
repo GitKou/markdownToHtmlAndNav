@@ -2,10 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 const cheerio = require('cheerio');
+
+let config = {};
+
 let renderer = new marked.Renderer();
 let markdownString = '';
 let htmlString = '';
-const entryName = '渠道对接严选Openapi接口文档说明-V2.0.2';
 
 renderer.heading = function (text, level, raw) {
     return '<h'
@@ -29,31 +31,7 @@ marked.setOptions({
     smartLists: true,
     smartypants: false
 });
-// 读取markdowm文件
-markdownString = fs.readFileSync(path.resolve(__dirname,  `${entryName}.md`), 'utf-8', (err, data) => {
-    if (err) throw err;
-});
-// 生成html字符串
-htmlString = marked(markdownString, { renderer: renderer });
-// 写content.html文件
-fs.writeFileSync(path.resolve(__dirname,  `output_${entryName}.html`), htmlString, 'utf-8', (err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('The file has been saved!');
-});
 
-let $ = cheerio.load(htmlString);
-let domTree = generateNavObj($, 2, 3);
-let $nav = cheerio.load('<ul class="m-doc-nav"></ul>')('ul.m-doc-nav');
-generateNavHtml(domTree, $nav);
-// 写nav.html文件
-fs.writeFileSync(path.resolve(__dirname,  `nav_${entryName}.html`), $nav.toString(), 'utf-8', (err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('The file has been saved!');
-});
 // 生成导航栏对象
 function generateNavObj($, levelStart, levelEnd) {
     var domTree = [];
@@ -126,4 +104,40 @@ function generateNavHtml(domTree, $nav) {
         }
 
     }
+}
+function generateFile(input, outHtml, outNav){
+    // 读取markdowm文件
+    markdownString = fs.readFileSync(path.resolve(__dirname, input), 'utf-8');
+    // 生成html字符串
+    htmlString = marked(markdownString, { renderer: renderer });
+    // 写content.html文件
+    fs.writeFileSync(path.resolve(__dirname, outHtml), htmlString, 'utf-8', (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log('The file has been saved!');
+    });
+
+    let $ = cheerio.load(htmlString);
+    let domTree = generateNavObj($, 2, 3);
+    let $nav = cheerio.load('<ul class="m-doc-nav"></ul>')('ul.m-doc-nav');
+    generateNavHtml(domTree, $nav);
+    // 写nav.html文件
+    fs.writeFileSync(path.resolve(__dirname, outNav), $nav.toString(), 'utf-8', (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log('The file has been saved!');
+    });
+}
+function generateFiles(config){
+    config = config;    
+    let fileConfig = config.inputAndOutputInfo;
+    for (var i = 0; i < fileConfig.length; i++){
+        generateFile(fileConfig[i].inputFileName, fileConfig[i].outputContentName, fileConfig[i].outputNavName);
+    }
+}
+
+module.exports = {
+    generateFiles: generateFiles,
 }
