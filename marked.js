@@ -4,7 +4,7 @@ const marked = require('marked');
 const cheerio = require('cheerio');
 let cwd = process.cwd();
 
-let config = {};
+let config = require('./utils/configDefault');
 
 let renderer = new marked.Renderer();
 let markdownString = '';
@@ -127,7 +127,7 @@ function generateFile(input, outHtml, outNav) {
 }
 
 function generateFiles(conf) {
-    config = conf;
+    config = Object.assign(config, conf);
     let fileConfig = config.inputAndOutputInfo;
     for (var i = 0; i < fileConfig.length; i++) {
         generateFile(fileConfig[i].inputFileName, fileConfig[i].outputContentName, fileConfig[i].outputNavName);
