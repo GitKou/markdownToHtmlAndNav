@@ -1,13 +1,4 @@
-// 生成导航栏对象
-function generateNavObj($, levelStart, levelEnd) {
-    var domTree = [];
-    for (var level = levelStart; level < levelEnd + 1; level++) {
-        $('h' + level).each(function (i, ele) {
-            pushNode(domTree, ele, levelStart);
-        });
-    }
-    return domTree;
-}
+const cheerio = require('cheerio');
 
 // 往domTree中添加Node
 function pushNode(domTree, ele, levelStart) {
@@ -53,7 +44,20 @@ function findPrevEleByTagName(ele, tagName) {
         return findPrevEleByTagName(ele.prev, tagName);
     }
 }
-
+// 生成导航栏数组
+function getNavArr(htmlString, levelStart, levelEnd){
+    let $ = cheerio.load(htmlString);
+    var domTree = [];
+    for (var level = levelStart; level < levelEnd + 1; level++) {
+        $('h' + level).each(function (i, ele) {
+            pushNode(domTree, ele, levelStart);
+        });
+    }
+    return domTree;
+}
 module.exports  = {
+    /*
+     { level: node.level, id: node.id, nodeList: [] }
+    */
     getNavArr: getNavArr
 }

@@ -11,11 +11,15 @@ let markdownString = '';
 let htmlString = '';
 
 renderer.heading = function (text, level, raw) {
+    let id = this.options.headerPrefix + raw.toLowerCase();
+    // 针对情况 #### <a name="msg"></a>msg
+    if (id.indexOf('</a>') != -1) {
+        id = id.replace(id.slice(id.indexOf('<a'), id.indexOf('a>') + 2), '');
+    }
     return '<h'
         + level
         + ' id="'
-        + this.options.headerPrefix
-        + raw.toLowerCase()
+        + id
         + '">'
         + text
         + '</h'
@@ -26,11 +30,11 @@ marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
     tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
+    breaks: true,
+    pedantic: true,
+    sanitize: true,
     smartLists: true,
-    smartypants: false
+    smartypants: true
 });
 
 // 生成导航栏对象
@@ -115,7 +119,7 @@ function generateFile(input, outHtml, outNav) {
     fs.writeFileSync(path.join(cwd, outHtml), htmlString, 'utf-8');
 
     let $ = cheerio.load(htmlString);
-    let domTree = generateNavObj($, 2, 3);
+    let domTree = generateNavObj($, 2, 4);
     let $nav = cheerio.load('<ul class="m-doc-nav"></ul>')('ul.m-doc-nav');
     generateNavHtml(domTree, $nav);
     // 写nav.html文件
