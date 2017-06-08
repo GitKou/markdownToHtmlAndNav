@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/GitKou/markdownToHtmlAndNav.git"
   },
-  "devDependencies": {
+  "dependencies": {
     "cheerio": "^1.0.0-rc.1",
     "commander": "^2.9.0",
     "marked": "^0.3.6"
