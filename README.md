@@ -1,5 +1,6 @@
 # markdownToHtmlAndNav
->  Output a markdownString(based on [marked](https://github.com/chjj/marked)) and a navString (based on the hierarchical relationship of headers'[h1, h2, h3])
+>  Output a htmlString(based on [marked](https://github.com/chjj/marked)) and a navString (based on the hierarchical relationship of headers'[h1, h2, h3])
+
 ## Install
 ```
 npm install markdown-to-nav

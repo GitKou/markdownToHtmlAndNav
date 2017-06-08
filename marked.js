@@ -50,7 +50,7 @@ function pushNode(domTree, ele, levelStart) {
     var node = {
         level: level,
         id: ele.attribs.id,
-        parentId: findPrevEleByTagName(ele, `h${level - 1}`).attribs.id
+        parentId: findPrevEleByTagName(ele, `h${level - 1}`) ? findPrevEleByTagName(ele, `h${level - 1}`).attribs.id : ''
     };
     if (level === levelStart) {
         domTree.push({ level: node.level, id: node.id, nodeList: [] });
@@ -72,7 +72,7 @@ function findNodePosition(arr, node) {
             break;
         }
         else if (arr[i].nodeList.length !== 0 && node.level - arr[i].level > 1) {
-            findNodePosition(arr[i].nodeList, level, id)
+            findNodePosition(arr[i].nodeList, node)
         }
     }
 }
