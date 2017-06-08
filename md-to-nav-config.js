@@ -10,5 +10,9 @@ module.exports = {
             outputContentName: "./output/b.html",
             outputNavName: "./output/b_nav.html",
         }
-    ]
+    ],
+    nav: {
+        levelStart: 2,
+        levelEnd: 3
+    }
 }

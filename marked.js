@@ -119,15 +119,15 @@ function generateFile(input, outHtml, outNav) {
     fs.writeFileSync(path.join(cwd, outHtml), htmlString, 'utf-8');
 
     let $ = cheerio.load(htmlString);
-    let domTree = generateNavObj($, 2, 4);
+    let domTree = generateNavObj($, config.nav.levelStart, config.nav.levelEnd);
     let $nav = cheerio.load('<ul class="m-doc-nav"></ul>')('ul.m-doc-nav');
     generateNavHtml(domTree, $nav);
     // 写nav.html文件
     fs.writeFileSync(path.join(cwd, outNav), $nav.toString(), 'utf-8');
 }
 
-function generateFiles(config) {
-    config = config;
+function generateFiles(conf) {
+    config = conf;
     let fileConfig = config.inputAndOutputInfo;
     for (var i = 0; i < fileConfig.length; i++) {
         generateFile(fileConfig[i].inputFileName, fileConfig[i].outputContentName, fileConfig[i].outputNavName);
