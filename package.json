@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-nav",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Transfer a markdown file to a html file and output its nav",
   "main": "marked.js",
   "bin": {

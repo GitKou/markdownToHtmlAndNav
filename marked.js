@@ -38,21 +38,21 @@ function generateNavObj($, levelStart, levelEnd) {
     var domTree = [];
     for (var level = levelStart; level < levelEnd + 1; level++) {
         $('h' + level).each(function (i, ele) {
-            pushNode(domTree, ele);
+            pushNode(domTree, ele, levelStart);
         });
     }
     return domTree;
 }
 
 // 往domTree中添加Node
-function pushNode(domTree, ele) {
+function pushNode(domTree, ele, levelStart) {
     var level = Number(ele.name.slice(1, ele.name.length));
     var node = {
         level: level,
         id: ele.attribs.id,
         parentId: findPrevEleByTagName(ele, `h${level - 1}`).attribs.id
     };
-    if (level === 2) {
+    if (level === levelStart) {
         domTree.push({ level: node.level, id: node.id, nodeList: [] });
     }
     else {
