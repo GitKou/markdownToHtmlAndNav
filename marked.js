@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 const cheerio = require('cheerio');
+let cwd = process.cwd();
 
 let config = {};
 
@@ -107,11 +108,11 @@ function generateNavHtml(domTree, $nav) {
 }
 function generateFile(input, outHtml, outNav){
     // 读取markdowm文件
-    markdownString = fs.readFileSync(path.resolve(__dirname, input), 'utf-8');
+    markdownString = fs.readFileSync(path.join(cwd, input), 'utf-8');
     // 生成html字符串
     htmlString = marked(markdownString, { renderer: renderer });
     // 写content.html文件
-    fs.writeFileSync(path.resolve(__dirname, outHtml), htmlString, 'utf-8', (err) => {
+    fs.writeFileSync(path.join(cwd, outHtml), htmlString, 'utf-8', (err) => {
         if (err) {
             throw err;
         }
@@ -123,7 +124,7 @@ function generateFile(input, outHtml, outNav){
     let $nav = cheerio.load('<ul class="m-doc-nav"></ul>')('ul.m-doc-nav');
     generateNavHtml(domTree, $nav);
     // 写nav.html文件
-    fs.writeFileSync(path.resolve(__dirname, outNav), $nav.toString(), 'utf-8', (err) => {
+    fs.writeFileSync(path.join(cwd, outNav), $nav.toString(), 'utf-8', (err) => {
         if (err) {
             throw err;
         }

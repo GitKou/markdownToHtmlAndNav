@@ -13,25 +13,38 @@ program.version(pkginfo.version);
 program
     .command('generate')
     .description('根据输入的MD文件生成内容HTML文件和导航HTML文件')
-    .option('-h, --help', 'input:指定输入的MD文件路径, outHtml:指定输出的内容.html文件的路径, outputNav:指定输出的导航.html文件的路径')
-    .option('-t, --traget <input> <outHtml> <outNav>', 'input:指定输入的MD文件路径, outHtml:指定输出的内容.html文件的路径, outputNav:指定输出的导航.html文件的路径')
+    .option('-h, --help', 'input:指定输入的MD文件路径, outContent:指定输出的内容.html文件的路径, outNav:指定输出的导航.html文件的路径')
+    .option('-i, --input <input>', 'input:指定输入的MD文件路径')
+    .option('-o, --outContent <outContent>', 'outContent:指定输出的内容.html文件的路径')
+    .option('-n, --outNav <outNav>', 'outNav:指定输出的导航.html文件的路径')
     .option('-c, --config <config>', '输入配置文件路径')
     .action((cmd, options) => {
-        if (!cmd.config && !(cmd.input && cmd.outHtml && cmd.outNav)) {
-            console.error('ERROR:generate <input> <outHtml> <outNav>, 请输入input:指定输入的MD文件路径, outHtml:指定输出的内容.html文件的路径, outputNav:指定输出的导航.html文件的路径');
-            process.exitCode = 1;
-            return;
+        if (!cmd.config) {
+            if (!(cmd.input && cmd.outContent && cmd.outNav)) {
+                console.error('ERROR:generate <input> <outContent> <outNav>, 请输入input:指定输入的MD文件路径, outNav:指定输出的内容.html文件的路径, outputNav:指定输出的导航.html文件的路径');
+                process.exitCode = 1;
+                return;
+            }
+            else {
+                mdToNav.generateFiles({
+                    inputAndOutputInfo: [{
+                        inputFileName: cmd.input,
+                        outputContentName: cmd.outContent, 
+                        outputNavName: cmd.outNav,
+                    }]
+                });
+            }
         }
-        else{
+        else {
             let configfilePath = path.join(cwd, cmd.config);
-            let config  = {};
+            let config = {};
             if (fs.existsSync(configfilePath)) {
                 config = require(configfilePath);
             }
             mdToNav.generateFiles(config);
         }
     })
-;
+    ;
 
 
 program.parse(process.argv);

@@ -1,12 +1,12 @@
 module.exports = {
     inputAndOutputInfo: [
         {
-            inputFileName: "./a.md",
+            inputFileName: "./input/a.md",
             outputContentName: "./output/a.html",
             outputNavName: "./output/a_nav.html",
         },
         {
-            inputFileName: "./b.md",
+            inputFileName: "./input/b.md",
             outputContentName: "./output/b.html",
             outputNavName: "./output/b_nav.html",
         }
