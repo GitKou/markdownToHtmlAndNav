@@ -31,10 +31,10 @@ marked.setOptions({
     gfm: true,
     tables: true,
     breaks: true,
-    pedantic: true,
-    sanitize: true,
+    pedantic: false,
+    sanitize: false,
     smartLists: true,
-    smartypants: true
+    smartypants: false
 });
 
 // 生成导航栏对象
