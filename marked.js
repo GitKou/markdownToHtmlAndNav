@@ -108,7 +108,6 @@ function generateFile(input, outHtml, outNav) {
 }
 
 function generateFiles(conf) {
-    config = require('./md-to-nav-config.js');
     config = utils.functions.deepMerge(config, conf);
     setMarkedByConf(config.marked);
     let fileConfig = config.inputAndOutputInfo;

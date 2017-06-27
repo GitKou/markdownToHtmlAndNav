@@ -22,9 +22,9 @@ module.exports = {
                 }
                 return '<h'
                     + level
-                    + ' id="'
+                    + ' id='
                     + id
-                    + '">'
+                    + '>'
                     + text
                     + '</h'
                     + level

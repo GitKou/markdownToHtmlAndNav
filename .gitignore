@@ -6,3 +6,4 @@ node_modules/
 .vscode
 output/
 input/
+md-to-nav-config.js

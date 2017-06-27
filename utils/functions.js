@@ -18,6 +18,6 @@ function deepMerge(target, ...sources){
     }
     return deepMerge(target, ...sources);
 }
-module.export  = {
+module.exports  = {
     deepMerge
 }

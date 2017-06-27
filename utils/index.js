@@ -1,5 +1,5 @@
 const functions = require('./functions');
 
-module.export = {
+module.exports = {
     functions
 }
