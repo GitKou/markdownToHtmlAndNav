@@ -108,7 +108,7 @@ function generateFile(input, outHtml, outNav) {
 
 function generateFiles(conf) {
     console.log(conf);
-    conf = require('./md-to-nav-config.js');
+    config = require('./md-to-nav-config.js');
     config = Object.assign(config, conf);
     setMarkedByConf(config.marked);
     let fileConfig = config.inputAndOutputInfo;

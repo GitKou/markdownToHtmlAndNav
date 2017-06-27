@@ -30,7 +30,7 @@ module.exports = {
         levelStart: 2,
         levelEnd: 3
     },
-     marked: {
+    marked: {
         options: {
             gfm: true,
             tables: true,
