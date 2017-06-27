@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 const marked = require('marked');
+const utils  = require('./utils/index');
 let cwd = process.cwd();
 
 let config = require('./config/configDefault');
@@ -107,15 +108,14 @@ function generateFile(input, outHtml, outNav) {
 }
 
 function generateFiles(conf) {
-    console.log(conf);
     config = require('./md-to-nav-config.js');
-    config = Object.assign(config, conf);
+    config = utils.functions.deepMerge(config, conf);
     setMarkedByConf(config.marked);
     let fileConfig = config.inputAndOutputInfo;
-    console.log(config);
     for (var i = 0; i < fileConfig.length; i++) {
         generateFile(fileConfig[i].inputFileName, fileConfig[i].outputContentName, fileConfig[i].outputNavName);
     }
+    console.log('Successed!');
 }
 // generateFiles();
 module.exports = {
